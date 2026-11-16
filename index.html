@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Computer Graphics Animations</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    background: #eef2f7;
+    color: #222;
+}
+
+h1 {
+    text-align: center;
+}
+
+h2 {
+    font-size: 18px;
+}
+
+.animation {
+    width: min(900px, 94%);
+    height: 240px;
+    margin: 20px auto;
+    border: 2px solid #333;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    background: white;
+}
+
+.caption {
+    text-align: center;
+    margin: 8px auto 25px;
+    color: #444;
+}
+
+/* =================================
+   1. BOUNCING BALL
+================================= */
+
+.animation > h2 {
+    position: absolute;
+    top: 5px;
+    left: 15px;
+    z-index: 5;
+}
+
+.ground {
+    position: absolute;
+    bottom: 25px;
+    width: 100%;
+    height: 4px;
+    background: #555;
+}
+
+.ball {
+    width: 45px;
+    height: 45px;
+    background: crimson;
+    border-radius: 50%;
+    position: absolute;
+    left: 5%;
+    bottom: 29px;
+    animation: moveBall 1s infinite ease-in-out alternate;
+}
+
+@keyframes moveBall {
+    from { left: 5%; }
+    to { left: 85%; }
+}
+
+/* =================================
+   2. MOVING CAR
+================================= */
+
+.road {
+    position: absolute;
+    bottom: 25px;
+    height: 65px;
+    width: 100%;
+    background: #555;
+}
+
+.road::after {
+    content: "";
+    position: absolute;
+    top: 31px;
+    width: 100%;
+    border-top: 3px dashed white;
+}
+
+.car {
+    position: absolute;
+    bottom: 55px;
+    left: -130px;
+    width: 110px;
+    height: 48px;
+    animation: drive 5s linear infinite;
+}
+
+.car-body {
+    position: absolute;
+    bottom: 10px;
+    width: 110px;
+    height: 30px;
+    background: #1684db;
+    border-radius: 12px 18px 4px 4px;
+}
+
+.car-top {
+    position: absolute;
+    bottom: 35px;
+    left: 23px;
+    width: 60px;
+    height: 22px;
+    background: #1684db;
+    clip-path: polygon(20% 0, 80% 0, 100% 100%, 0 100%);
+}
+
+.window {
+    position: absolute;
+    bottom: 36px;
+    left: 40px;
+    width: 28px;
+    height: 15px;
+    background: lightblue;
+    clip-path: polygon(15% 0, 85% 0, 100% 100%, 0 100%);
+}
+
+.wheel {
+    position: absolute;
+    bottom: 0;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #111;
+    border: 5px solid #bbb;
+}
+
+.wheel.one { left: 15px; }
+.wheel.two { right: 12px; }
+
+@keyframes drive {
+    from { left: -130px; }
+    to { left: calc(100% + 130px); }
+}
+
+/* =================================
+   3. MOVING MOON
+================================= */
+
+.sky {
+    background: #07152f;
+}
+
+.star {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: white;
+    border-radius: 50%;
+}
+
+.star.s1 { top: 60px; left: 15%; }
+.star.s2 { top: 95px; left: 30%; }
+.star.s3 { top: 65px; left: 55%; }
+.star.s4 { top: 110px; left: 75%; }
+.star.s5 { top: 45px; left: 88%; }
+
+.moon {
+    position: absolute;
+    top: 75px;
+    left: 5%;
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    background: #fff2b0;
+    box-shadow: 0 0 25px #fff2b0;
+    animation: moonmove 5s linear infinite alternate;
+}
+
+@keyframes moonmove {
+    from { left: 5%; }
+    to { left: 85%; }
+}
+
+/* =================================
+   4. MOVING ROBOT
+================================= */
+
+.robot-stage {
+    height: 320px;
+    background: linear-gradient(
+        #82c5e8 0%,
+        #d7eff4 65%,
+        #9bc28e 65%,
+        #6c9d70 100%
+    );
+}
+
+.sun {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background: #ffe68a;
+    border-radius: 50%;
+    top: 25px;
+    right: 40px;
+    box-shadow: 0 0 25px #ffe68a;
+}
+
+.robot-track {
+    position: absolute;
+    bottom: 60px;
+    left: -120px;
+    width: 100px;
+    height: 155px;
+    animation: robotMove 8s linear infinite;
+}
+
+@keyframes robotMove {
+    from { transform: translateX(0); }
+    to { transform: translateX(calc(100vw + 350px)); }
+}
+
+.robot {
+    position: relative;
+    width: 100px;
+    height: 150px;
+    animation: bounce 0.5s infinite alternate;
+}
+
+@keyframes bounce {
+    from { transform: translateY(0); }
+    to { transform: translateY(-5px); }
+}
+
+.robot-head {
+    position: absolute;
+    width: 70px;
+    height: 55px;
+    background: linear-gradient(135deg, white, #829bb3);
+    border: 3px solid #536b83;
+    border-radius: 15px;
+    left: 15px;
+    top: 0;
+    box-shadow: 5px 5px 0 #344c64;
+}
+
+.robot-head::before {
+    content: "";
+    position: absolute;
+    width: 43px;
+    height: 18px;
+    background: #152a42;
+    border-radius: 8px;
+    left: 11px;
+    top: 15px;
+}
+
+.eye {
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    background: cyan;
+    border-radius: 50%;
+    top: 21px;
+    z-index: 2;
+    box-shadow: 0 0 8px cyan;
+}
+
+.eye1 { left: 28px; }
+.eye2 { left: 49px; }
+
+.antenna {
+    position: absolute;
+    width: 5px;
+    height: 15px;
+    background: #536b83;
+    left: 48px;
+    top: -15px;
+}
+
+.antenna::after {
+    content: "";
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background: orange;
+    border-radius: 50%;
+    left: -4px;
+    top: -8px;
+}
+
+.robot-body {
+    position: absolute;
+    width: 60px;
+    height: 55px;
+    background: linear-gradient(135deg, #dceaf5, #7792ad);
+    border: 3px solid #536b83;
+    border-radius: 10px;
+    left: 20px;
+    top: 62px;
+    box-shadow: 5px 5px 0 #344c64;
+}
+
+.robot-body::after {
+    content: "";
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    background: #00cbd5;
+    border-radius: 50%;
+    left: 19px;
+    top: 16px;
+    box-shadow: 0 0 10px cyan;
+}
+
+.arm {
+    position: absolute;
+    width: 13px;
+    height: 43px;
+    background: linear-gradient(90deg, #526b83, #e1edf5);
+    border-radius: 8px;
+    top: 68px;
+    transform-origin: top;
+}
+
+.arm1 {
+    left: 7px;
+    animation: armMove 0.5s infinite alternate;
+}
+
+.arm2 {
+    right: 3px;
+    animation: armMove 0.5s infinite alternate-reverse;
+}
+
+@keyframes armMove {
+    to { transform: rotate(30deg); }
+}
+
+.leg {
+    position: absolute;
+    width: 15px;
+    height: 32px;
+    background: linear-gradient(90deg, #526b83, #dceaf5);
+    border-radius: 5px;
+    top: 115px;
+    transform-origin: top;
+}
+
+.leg1 {
+    left: 30px;
+    animation: legMove 0.4s infinite alternate;
+}
+
+.leg2 {
+    left: 55px;
+    animation: legMove 0.4s infinite alternate-reverse;
+}
+
+@keyframes legMove {
+    to { transform: rotate(35deg); }
+}
+
+/* =================================
+   5. CAT CHASING A MOUSE
+================================= */
+
+.chase-stage {
+    height: 320px;
+    background: linear-gradient(
+        #a8d8f0 0%,
+        #e5f4ed 66%,
+        #b5d8a1 66%,
+        #83b17d 100%
+    );
+}
+
+.cat-track {
+    position: absolute;
+    bottom: 60px;
+    left: -160px;
+    width: 140px;
+    height: 110px;
+    animation: catMove 6s linear infinite;
+}
+
+@keyframes catMove {
+    from { transform: translateX(0); }
+    to { transform: translateX(calc(100vw + 400px)); }
+}
+
+.cat {
+    position: relative;
+    width: 130px;
+    height: 100px;
+    animation: catBounce 0.3s infinite alternate;
+}
+
+@keyframes catBounce {
+    to { transform: translateY(-5px); }
+}
+
+.cat-body {
+    position: absolute;
+    width: 80px;
+    height: 43px;
+    background: linear-gradient(135deg, #ffc46e, #d87830);
+    border-radius: 45%;
+    bottom: 12px;
+    left: 28px;
+    box-shadow: 4px 5px 0 #985327;
+}
+
+.cat-head {
+    position: absolute;
+    width: 55px;
+    height: 52px;
+    background: linear-gradient(135deg, #ffd18b, #d87830);
+    border-radius: 50%;
+    left: 3px;
+    bottom: 38px;
+    box-shadow: 4px 4px 0 #985327;
+}
+
+.ear {
+    position: absolute;
+    width: 22px;
+    height: 25px;
+    background: #e78d48;
+    top: -12px;
+    clip-path: polygon(50% 0, 100% 100%, 0 100%);
+}
+
+.ear1 { left: 3px; }
+.ear2 { right: 3px; }
+
+.cat-eye {
+    position: absolute;
+    width: 6px;
+    height: 9px;
+    background: #243b31;
+    border-radius: 50%;
+    top: 22px;
+}
+
+.cat-eye1 { left: 15px; }
+.cat-eye2 { right: 15px; }
+
+.nose {
+    position: absolute;
+    width: 7px;
+    height: 5px;
+    background: pink;
+    border-radius: 50%;
+    left: 24px;
+    top: 34px;
+}
+
+.tail {
+    position: absolute;
+    width: 40px;
+    height: 35px;
+    border: 8px solid #d87830;
+    border-left: 0;
+    border-bottom: 0;
+    border-radius: 0 30px 0 0;
+    right: 3px;
+    bottom: 35px;
+    transform-origin: left bottom;
+    animation: tailMove 0.4s infinite alternate;
+}
+
+@keyframes tailMove {
+    to { transform: rotate(20deg); }
+}
+
+.cat-leg {
+    position: absolute;
+    width: 11px;
+    height: 25px;
+    background: #d87830;
+    border-radius: 6px;
+    bottom: 0;
+    transform-origin: top;
+}
+
+.c1 {
+    left: 42px;
+    animation: run 0.3s infinite alternate;
+}
+
+.c2 {
+    left: 65px;
+    animation: run 0.3s infinite alternate-reverse;
+}
+
+.c3 {
+    left: 90px;
+    animation: run 0.3s infinite alternate-reverse;
+}
+
+.c4 {
+    left: 105px;
+    animation: run 0.3s infinite alternate;
+}
+
+@keyframes run {
+    to { transform: rotate(35deg); }
+}
+
+.mouse-track {
+    position: absolute;
+    left: -55px;
+    bottom: 70px;
+    width: 50px;
+    height: 35px;
+    animation: mouseMove 6s linear infinite;
+}
+
+@keyframes mouseMove {
+    from { transform: translateX(0); }
+    to { transform: translateX(calc(100vw + 250px)); }
+}
+
+.mouse {
+    position: absolute;
+    width: 38px;
+    height: 23px;
+    background: linear-gradient(135deg, #e0e3e8, #858d9a);
+    border-radius: 50%;
+    bottom: 0;
+    box-shadow: 3px 3px 0 #4d5663;
+    animation: mouseBounce 0.2s infinite alternate;
+}
+
+@keyframes mouseBounce {
+    to { transform: translateY(-3px); }
+}
+
+.mouse::before,
+.mouse::after {
+    content: "";
+    position: absolute;
+    width: 13px;
+    height: 13px;
+    background: #e9a7b4;
+    border: 3px solid #858d9a;
+    border-radius: 50%;
+    top: -7px;
+}
+
+.mouse::before { left: 5px; }
+.mouse::after { left: 19px; }
+
+.mouse-tail {
+    position: absolute;
+    width: 23px;
+    height: 12px;
+    border-bottom: 2px solid pink;
+    border-radius: 50%;
+    left: -18px;
+    bottom: 4px;
+}
+
+/* RESPONSIVE DESIGN */
+
+@media (max-width: 700px) {
+    .animation {
+        width: 100%;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<h1>Computer Graphics: CSS Animations</h1>
+<h1>Name: Olaniyi Ayomide Victor</h1>
+<h1>Matric No: CPE/2021/1051</h1>
+
+<!-- 1. BOUNCING BALL -->
+
+<section class="animation">
+    <h2>1. Bouncing Ball</h2>
+    <div class="ground"></div>
+    <div class="ball"></div>
+</section>
+
+<p class="caption">A ball moves continuously from one point to another.</p>
+
+
+<!-- 2. MOVING CAR -->
+
+<section class="animation">
+    <h2>2. Moving Car</h2>
+    <div class="road"></div>
+
+    <div class="car">
+        <div class="car-top"></div>
+        <div class="window"></div>
+        <div class="car-body"></div>
+        <div class="wheel one"></div>
+        <div class="wheel two"></div>
+    </div>
+</section>
+
+<p class="caption">The car crosses the screen and reappears.</p>
+
+
+<!-- 3. MOVING MOON -->
+
+<section class="animation sky">
+    <h2 style="color:white">3. Moving Moon</h2>
+
+    <div class="star s1"></div>
+    <div class="star s2"></div>
+    <div class="star s3"></div>
+    <div class="star s4"></div>
+    <div class="star s5"></div>
+
+    <div class="moon"></div>
+</section>
+
+<p class="caption">The moon travels across the night sky.</p>
+
+
+<!-- 4. MOVING ROBOT -->
+
+<section class="animation robot-stage">
+    <h2>4. Moving Robot</h2>
+
+    <div class="sun"></div>
+    <div class="ground"></div>
+
+    <div class="robot-track">
+        <div class="robot">
+
+            <div class="antenna"></div>
+
+            <div class="robot-head">
+                <span class="eye eye1"></span>
+                <span class="eye eye2"></span>
+            </div>
+
+            <div class="arm arm1"></div>
+            <div class="arm arm2"></div>
+
+            <div class="robot-body"></div>
+
+            <div class="leg leg1"></div>
+            <div class="leg leg2"></div>
+
+        </div>
+    </div>
+</section>
+
+<p class="caption">The robot walks continuously from Point A to Point B.</p>
+
+
+<!-- 5. CAT CHASING MOUSE -->
+
+<section class="animation chase-stage">
+    <h2>5. Cat Chasing a Mouse</h2>
+
+    <div class="sun"></div>
+    <div class="ground"></div>
+
+    <!-- Mouse -->
+
+    <div class="mouse-track">
+        <div class="mouse">
+            <span class="mouse-tail"></span>
+        </div>
+    </div>
+
+    <!-- Cat -->
+
+    <div class="cat-track">
+        <div class="cat">
+
+            <div class="tail"></div>
+            <div class="cat-body"></div>
+
+            <div class="cat-head">
+
+                <span class="ear ear1"></span>
+                <span class="ear ear2"></span>
+
+                <span class="cat-eye cat-eye1"></span>
+                <span class="cat-eye cat-eye2"></span>
+
+                <span class="nose"></span>
+
+            </div>
+
+            <span class="cat-leg c1"></span>
+            <span class="cat-leg c2"></span>
+            <span class="cat-leg c3"></span>
+            <span class="cat-leg c4"></span>
+
+        </div>
+    </div>
+
+</section>
+
+<p class="caption">The cat runs continuously after the mouse.</p>
+
+</body>
+</html>
